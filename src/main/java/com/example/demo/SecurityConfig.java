@@ -16,7 +16,7 @@ public class SecurityConfig {
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
         .authorizeRequests()
-        	.requestMatchers("/","/home")
+        	.requestMatchers("/","/home", "/register")
         	.permitAll()
             .anyRequest().authenticated()
             .and()
@@ -25,7 +25,11 @@ public class SecurityConfig {
             .permitAll()
             .usernameParameter("username")
             .defaultSuccessUrl("/secret")
-            .failureUrl("/login?error=true");   
+            .failureUrl("/login?error=true")
+        .and()
+        .logout()
+        	.logoutUrl("/logout")
+        	.logoutSuccessUrl("/");   
 
 		return http.build();
 	}
